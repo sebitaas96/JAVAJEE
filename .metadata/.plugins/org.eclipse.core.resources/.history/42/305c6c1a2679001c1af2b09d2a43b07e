@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Ejercicio 4</title>
+</head>
+<body>
+	<form method='post' action="ejercicio4">
+		<label for='nombre'>Nombre</label>
+		<input type='text' name='nom' id='nombre'/><br/>
+		<input type='submit' value='Enviar'/>
+	</form>
+</body>
+</html>
