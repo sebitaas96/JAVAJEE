@@ -21,16 +21,6 @@ public class ejercicio10 extends HttpServlet {
       
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String tiempofinal = "";
-		
-		Cookie[]tiempo = request.getCookies();
-		if(tiempo !=null && tiempo.length>0) {
-			tiempofinal = obtenerCooki(tiempo);
-		}
-		else {
-			Cookie nValidacion = new Cookie("nValidacion","0");
-			response.addCookie(nValidacion);
-		}
 		
 		response.setContentType("text/html");
 		PrintWriter pw=response.getWriter();
@@ -46,8 +36,6 @@ public class ejercicio10 extends HttpServlet {
 					+ "<label for='pwd'>Password</label>"
 					+ "<input type='password' name='pwd' id='pwd'><br/>"
 					+ "<input type='submit' value='Enviar'/></form>");
-	
-				pw.println("<p>Tiempo transucrrido desde la ultima validacion "+tiempofinal+"</p>");
 				pw.println("</body></html>");
 		
 	}
@@ -59,11 +47,12 @@ public class ejercicio10 extends HttpServlet {
 		
 		String nombre = request.getParameter("user");
 		String pwd = request.getParameter("pwd");
-			
-		//Increntamos la cookie de validacion 
-		Cookie[] cookies = request.getCookies();
-		String nValidacion = obtenerCooki(cookies);
-		nValidacion = ""+(Integer.parseInt(nValidacion));
+		String tiempoTranscurrido = "";
+		
+		Cookie[]tiempoT = request.getCookies();
+		if(tiempoT !=null) {
+		   tiempoTranscurrido = obtenerCooki(nombre,tiempoT);	
+		}
 		
 		response.setContentType("text/html");
 		PrintWriter pw = response.getWriter();
@@ -71,14 +60,29 @@ public class ejercicio10 extends HttpServlet {
 		if(usuarios.get(nombre)!=null && usuarios.get(nombre).equals(pwd)) {
 
 			int timing = (int) System.currentTimeMillis();
-			String segundos =""+(timing/1000);
-			Cookie tiempo = new Cookie("tiempo",segundos);
+			String milisegundos =""+(timing);
+			Cookie tiempo = new Cookie(nombre,milisegundos);
 			response.addCookie(tiempo);
 			
 			pw.println("<h1>Bienvenido "+nombre+"</h1>"
 					+ "<form method='get' action='ejercicio10'>"
-					+ "<input type='submit' value='logout'>"
-					+ "</form>");
+					+ "<input type='submit' value='logout'>");
+			if(tiempoTranscurrido !="") {
+			    long horaDesconexion = Long.parseLong(tiempoTranscurrido);
+			    long horaActual = System.currentTimeMillis();
+			    long diferencia = (horaActual-horaDesconexion)/1000;
+			    if(diferencia>=60) {
+			    	pw.println("Hace mas de un minuto que no te vemos por aqui");	
+			    }
+			    else {
+			    	pw.println("Hace mas de "+tiempoTranscurrido+" que no te vemos por aqui");		
+			    }
+				
+			}
+			else {
+				pw.println(	"Es la primera vez que te vemos por aqui");
+			}
+		    pw.println(	"</form>");
 		}
 		else {
 			pw.println("<h1>Credenciales incorrectas</h1>");
@@ -86,10 +90,10 @@ public class ejercicio10 extends HttpServlet {
 		
 	}
 	
-	public String obtenerCooki(Cookie[] cookies) {
+	public String obtenerCooki(String nombreCookie,Cookie[] cookies) {
 		 String cookie = "";
-		 for(int i=0; i<cookies.length;i++) {
-			 cookie = cookies[i].getValue();
+		 for(Cookie cooki:cookies) {
+			 cookie = cooki.getName().equals(nombreCookie)?cooki.getValue():"";
 		 }
 		return cookie;
 	}
