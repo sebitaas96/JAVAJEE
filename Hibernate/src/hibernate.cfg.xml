@@ -15,6 +15,7 @@
 		<property name="hbm2ddl.auto">update</property>
 
 		<mapping class="hibernate.entities.Persona"/>
+		<mapping class="hibernate.entities.Pais"/>
 	</session-factory>
 </hibernate-configuration>
 
