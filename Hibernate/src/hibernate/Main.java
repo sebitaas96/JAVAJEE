@@ -79,6 +79,11 @@ public class Main {
 		Pais p = session.get(Pais.class, id);
 		return p;
 	}
+	private static Aficion recuperarAficionID(Long id) {
+		Session session = obtenerSesion();
+		Aficion a = session.get(Aficion.class, id);
+		return a;
+	}
 	
 	private static List<Persona> recuperarPersonaNombre(String nombre){
 		Session session = obtenerSesion();
@@ -129,6 +134,12 @@ public class Main {
 		//Creamos aficion
 		Aficion afi = new Aficion("Baloncesto");
 		guardarAficion(afi);
+		
+		//Asociamos aficiones a una persona
+		Aficion a1 = recuperarAficionID(1L);
+		Persona p = recuperarPersonaID(1L);
+		p.setAficionesGusta(List.of(a1));
+		actualizarPersona(p);
 	}
 
 	

@@ -75,7 +75,20 @@ public class Persona {
 	public void setPaisNace(Pais paisNace) {
 		this.paisNace = paisNace;
 	}
+	public Collection<Aficion> getAficionesGusta() {
+		return aficionesGusta;
+	}
+
+	public void setAficionesGusta(Collection<Aficion> aficionesGusta) {
+		for(Aficion aficion: aficionesGusta) {
+			this.aficionesGusta.add(aficion);
+		}
+		//this.aficionesGusta = aficionesGusta;
+	}
+
+	
 	//==========================================
+
 
 	public String toString() {
 		return "Persona [nombre=" + nombre + "]";

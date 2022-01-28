@@ -1,1 +1,11 @@
 1643011596996	Rename type 'ejercicio1'
+1643357103083	Delete element
+1643357920535	Rename package 'PAP.modelo'
+1643357974520	Rename resource 'aficiones'
+1643358045551	Delete element
+1643358050765	Delete element
+1643358315047	Delete element
+1643359175520	Rename resource 'cOK.jsp'
+1643359439539	Move 'hibernate.cfg.xml' to 'java'
+1643359600962	Move 'hibernate.cfg.xml' to 'classes'
+1643360832682	Delete element

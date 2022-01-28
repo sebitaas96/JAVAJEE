@@ -1,14 +1,17 @@
 package hibernate.entities;
 
 import java.util.ArrayList;
+
 import java.util.Collection;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
+@Entity
 public class Aficion {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,6 +45,13 @@ public class Aficion {
 	}
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+	
+	public Collection<Persona> getPersonasQueGustan() {
+		return personasQueGustan;
+	}
+	public void setPersonasQueGustan(Collection<Persona> personasQueGustan) {
+		this.personasQueGustan = personasQueGustan;
 	}
 	//============================
 	@Override
